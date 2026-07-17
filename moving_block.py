@@ -1,42 +1,10 @@
 import pygame as game
 
 game.init()
+
 speed = game.time.Clock()
 
-class Snake_game:
-    window = game.display.set_mode((600, 600))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+window = game.display.set_mode((600, 600))
 
 try:
     background_image = game.image.load("game-images/grass.jpg")
