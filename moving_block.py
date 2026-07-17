@@ -39,7 +39,7 @@ while running:
     for event in game.event.get():
         if event.type == game.QUIT:
             running = False
-        if event.key == game.KEYDOWN:
+        if event.type == game.KEYDOWN:
             if event.key == game.K_RIGHT:
                 X+=6
                 block_design()
@@ -50,11 +50,8 @@ while running:
                 Y -= 6
                 block_design()
             if event.key == game.K_DOWN:
-                Y -= 6
+                Y += 6
                 block_design()
-        
-        elif event.type == game.QUIT:
-                running = False
 
     game.display.flip()
     speed.tick(60)
