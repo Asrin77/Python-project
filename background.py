@@ -7,7 +7,7 @@ window = game.display.set_mode((1000, 400))
 
 background_image = game.image.load("skybackground.png")
 b_width = background_image.get_width()
-image_pos = (window.get_width()/b_width) + 2
+image_pos = (window.get_width()/b_width) + 2.5
 
 scroll = 0
 
@@ -25,7 +25,7 @@ while running:
     for i in range(0,int(image_pos)):  #scrolling background
         window.blit(background_image, ((i*b_width+scroll , 0)))
     
-    scroll -= 4
+    scroll -= 5
 
     if scroll <= -b_width:  #resetting
         scroll = 0
