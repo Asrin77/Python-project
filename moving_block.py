@@ -5,7 +5,13 @@ game.init()
 speed = game.time.Clock()
 
 window = game.display.set_mode((600, 600))
-background_image = game.image.load("grass.jpg")
+
+try:
+    background_image = game.image.load("game-images/grass.jpg")
+except FileNotFoundError:
+    print(f"Error: grass.jpg not found")
+    game.quit()
+    exit()
 
 running = True
 
