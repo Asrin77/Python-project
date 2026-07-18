@@ -2,14 +2,13 @@ import pygame
 from pygame.locals import *
 import time
 import random
-import os
 
 SIZE = 40
 
 class Carrot:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/carrot.jpg").convert()
+        self.image = pygame.image.load("game-images/carrot.png").convert()
         self.x = 120
         self.y = 120
 
@@ -23,7 +22,7 @@ class Carrot:
 class RottenCarrot:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/rotten_carrot.jpg").convert()
+        self.image = pygame.image.load("game-images/poisonedcarrot.png").convert()
         self.x = 200
         self.y = 200
 
