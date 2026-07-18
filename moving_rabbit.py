@@ -9,9 +9,9 @@ class Rabbit_design:
         this.screen = screen
 
         try:
-            this.block = game.image.load("game-images/yellow_block.png")
+            this.rb = game.image.load("game-images/rabbit.png")
         except FileNotFoundError:
-            print(f"Error: yellow_block.png not found")
+            print(f"Error: rabbit.png not found")
             game.quit()
             exit()
  
@@ -31,7 +31,7 @@ class Rabbit_design:
         this.Y += 12
     
     def display(this):
-        this.screen.blit(this.block, (this.X, this.Y))
+        this.screen.blit(this.rb, (this.X, this.Y))
 
         
 
