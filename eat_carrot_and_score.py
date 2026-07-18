@@ -56,12 +56,12 @@ class Rabbit:
         self.direction = 'down'
 
     def walk(self):
-        # update body
+        
         for i in range(self.length - 1, 0, -1):
             self.x[i] = self.x[i - 1]
             self.y[i] = self.y[i - 1]
 
-        # update head
+        
         if self.direction == 'left':
             self.x[0] -= SIZE
         if self.direction == 'right':
@@ -94,7 +94,7 @@ class Game:
         self.rotten_carrot = RottenCarrot(self.surface)
         self.rotten_carrot.draw()
         
-        # File handling to load high score
+        
         self.high_score = 0
         if os.path.exists("highscore.txt"):
             f = open("highscore.txt", "r")
@@ -112,7 +112,7 @@ class Game:
         score = font.render(f"Score: {self.rabbit.length}", True, (200, 200, 200))
         self.surface.blit(score, (850, 10))
         
-        # Display high score on the top-left
+        
         hs_score = font.render(f"High Score: {self.high_score}", True, (200, 200, 200))
         self.surface.blit(hs_score, (10, 10))
 
@@ -128,15 +128,15 @@ class Game:
             self.carrot.move()
             self.rotten_carrot.move()
 
-        # Check collision with rotten carrot
-        if self.is_collision(self.rabbit.x[0], self.rabbit.y[0], self.rotten_carrot.x, self.rotten_carrot.y):
-            # File handling to save high score if broken
+        
+        if self.is_collision(self.rabbit.x[0], self.rabbit.y[0], self.rotten_carrot.x,self.rotten_carrot.y):
+            
             if self.rabbit.length > self.high_score:
                 f = open("highscore.txt", "w")
                 f.write(str(self.rabbit.length))
                 f.close()
             
-            # Show simple message and exit loop
+            
             font = pygame.font.SysFont('arial', 50)
             game_over = font.render("Game Over! Rabbit ate rotten carrot.", True, (255, 0, 0))
             self.surface.blit(game_over, (200, 350))
@@ -172,4 +172,6 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.run()
+    
+
 
