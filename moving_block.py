@@ -5,7 +5,8 @@ game.init()
 
 
 class Snake_design:
-    def __init__(this):
+    def __init__(this, screen):
+        this.screen = screen
 
         try:
             this.block = game.image.load("game-images/yellow_block.png")
@@ -28,12 +29,16 @@ class Snake_design:
 
     def down_key(this):
         this.Y += 12
+    
+    def display(this):
+        this.screen.blit(this.block, (this.X, this.Y))
+
         
 
 class Game_design:
-    def __init__ (this, window):
-        this.screen = window
-        this.window = game.display.set_mode((600, 600))
+    def __init__ (this):
+        this.screen = game.display.set_mode((600, 600))
+         
         try:
             this.window = game.image.load("game-images/grass.jpg")
         except FileNotFoundError:
