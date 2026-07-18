@@ -58,20 +58,20 @@ class Game_design:
                 if event.type == game.KEYDOWN:
 
                     if event.key == game.K_RIGHT:
-                        this.snake.right_key()
+                        this.rabbit.right_key()
                     
                     if event.key == game.K_LEFT:
-                        this.snake.left_key()
+                        this.rabbit.left_key()
                     
                     if event.key == game.K_UP:
-                        this.snake.up_key()
+                        this.rabbit.up_key()
 
                     if event.key == game.K_DOWN:
-                        this.snake.down_key()
+                        this.rabbit.down_key()
                 
             this.screen.blit(this.window, (0,0))
-            this.snake.display()
-            game.flip()
+            this.rabbit.display()
+            game.display.flip()
         game.quit()
 
 rb = Game_design()
