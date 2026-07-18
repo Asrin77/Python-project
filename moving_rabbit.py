@@ -14,11 +14,11 @@ class Rabbit_design:
             game.quit()
             exit()
  
-        this.X = 100
-        this.Y = 100
+        this.X = 236 # 600 -128 / 2
+        this.Y = 236
 
     def right_key(this):
-        if this.X < 472:
+        if this.X < 580:
             this.X += 12
 
     def left_key(this):
@@ -30,7 +30,7 @@ class Rabbit_design:
             this.Y -= 12
 
     def down_key(this):
-        if this.Y < 472 :  
+        if this.Y < 580 :  
             this.Y += 12
     
     def display(this):
