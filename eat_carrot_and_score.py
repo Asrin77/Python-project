@@ -94,12 +94,30 @@ class Game:
         self.rotten_carrot = RottenCarrot(self.surface)
         self.rotten_carrot.draw()
         
-        
         self.high_score = 0
-        if os.path.exists("highscore.txt"):
-            f = open("highscore.txt", "r")
-            self.high_score = int(f.read())
-            f.close()
+        filename = 'highscore.txt'
+
+        
+        try:
+            
+            with open(filename, 'r') as file:
+                content = file.read()
+                self.high_score = int(content.strip())
+
+        except FileNotFoundError as e:
+            print(f"Error: {e}. The file '{filename}' does not exist.")
+            
+            with open(filename, 'w') as file:
+                file.write("0")
+
+        except IOError as e:
+            print(f"Error: {e}. An I/O error occurred while handling the file '{filename}'.")
+
+        except PermissionError as e:
+            print(f"Error: {e}. You do not have permission to access the file '{filename}'.")
+
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     def is_collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + SIZE:
@@ -111,7 +129,6 @@ class Game:
         font = pygame.font.SysFont('arial', 30)
         score = font.render(f"Score: {self.rabbit.length}", True, (200, 200, 200))
         self.surface.blit(score, (850, 10))
-        
         
         hs_score = font.render(f"High Score: {self.high_score}", True, (200, 200, 200))
         self.surface.blit(hs_score, (10, 10))
@@ -128,14 +145,14 @@ class Game:
             self.carrot.move()
             self.rotten_carrot.move()
 
-        
-        if self.is_collision(self.rabbit.x[0], self.rabbit.y[0], self.rotten_carrot.x,self.rotten_carrot.y):
-            
+        if self.is_collision(self.rabbit.x[0], self.rabbit.y[0], self.rotten_carrot.x, self.rotten_carrot.y):
+            filename = 'highscore.txt'
             if self.rabbit.length > self.high_score:
-                f = open("highscore.txt", "w")
-                f.write(str(self.rabbit.length))
-                f.close()
-            
+                try:
+                    with open(filename, 'w') as file:
+                        file.write(str(self.rabbit.length))
+                except Exception as e:
+                    print(f"Could not save score: {e}")
             
             font = pygame.font.SysFont('arial', 50)
             game_over = font.render("Game Over! Rabbit ate rotten carrot.", True, (255, 0, 0))
@@ -168,10 +185,9 @@ class Game:
                 running = False
                 
             time.sleep(.2)
+        
+        print("Program ended")
 
 if __name__ == '__main__':
     game = Game()
     game.run()
-    
-
-
