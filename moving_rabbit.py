@@ -1,7 +1,7 @@
 import pygame as game
 
 game.init()
-
+speed = game.time.Clock()
 
 class Rabbit_design:
     def __init__(this, screen):
@@ -18,7 +18,8 @@ class Rabbit_design:
         this.Y = 100
 
     def right_key(this):
-        this.X += 12
+        if this.X < 600:
+            this.X += 12
 
     def left_key(this):
         this.X -= 12
@@ -72,6 +73,7 @@ class Game_design:
             this.rabbit.display()
             game.display.flip()
         game.quit()
+        speed.tick(60)
 
 rb = Game_design()
 rb.run()
