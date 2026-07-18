@@ -18,17 +18,20 @@ class Rabbit_design:
         this.Y = 100
 
     def right_key(this):
-        if this.X < 600:
+        if this.X < 472:
             this.X += 12
 
     def left_key(this):
-        this.X -= 12
+        if this.X > 0:
+            this.X -= 12
 
     def up_key(this):
-        this.Y -= 12
+        if this.Y > 0:
+            this.Y -= 12
 
     def down_key(this):
-        this.Y += 12
+        if this.Y < 472 :  
+            this.Y += 12
     
     def display(this):
         this.screen.blit(this.rb, (this.X, this.Y))
@@ -71,9 +74,10 @@ class Game_design:
                 
             this.screen.blit(this.window, (0,0))
             this.rabbit.display()
+            speed.tick(60)
             game.display.flip()
         game.quit()
-        speed.tick(60)
+        
 
 rb = Game_design()
 rb.run()
