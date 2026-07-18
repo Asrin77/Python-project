@@ -2,9 +2,18 @@ import pygame as game
 
 game.init()
 
+
+
 class Snake_design:
     def __init__(this):
-        this.block = game.load("game-images/yellow_block.png")
+        try:
+            this.block = game.load("game-images/yellow_block.png")
+        except FileNotFoundError:
+            print(f"Error: yellow_block.png not found")
+            game.quit()
+            exit()
+
+        
         this.x = 100
         this.y = 100
 
@@ -25,7 +34,19 @@ class Game_design:
     def __init__ (this, window):
         this.screen = window
         this.window = game.display.set_mode((600, 600))
-        this.window = game.image.load("game-images/grass.jpg")
+        try:
+            this.window = game.image.load("game-images/grass.jpg")
+        except FileNotFoundError:
+            print(f"Error: grass.jpg not found")
+            game.quit()
+            exit()
+
+    def run(this):
+        running = True
+        
+        while running:
+            
+        
 
 
 
