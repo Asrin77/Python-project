@@ -4,7 +4,7 @@ game.init()
 
 
 
-class Snake_design:
+class Rabbit_design:
     def __init__(this, screen):
         this.screen = screen
 
@@ -45,7 +45,7 @@ class Game_design:
             print(f"Error: grass.jpg not found")
             game.quit()
             exit()
-        this.snake= Snake_design()
+        this.rabbit= Rabbit_design(this.screen)
 
     def run(this):
         running = True
@@ -68,4 +68,12 @@ class Game_design:
 
                     if event.key == game.K_DOWN:
                         this.snake.down_key()
+                
+            this.screen.blit(this.window, (0,0))
+            this.snake.display()
+            game.flip()
+        game.quit()
+
+rb = Game_design()
+rb.run()
                         
