@@ -1,18 +1,18 @@
 import pygame
 from pygame.locals import *
-import time
 import random
 
+pygame.init()
+speed = pygame.time.Clock()
 SIZE = 40
 
 class Carrot:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/carrot.jpg").convert()
-        self.x = 120
-        self.y = 120
+        self.image = pygame.image.load("game-images/carrot.png")
+        
 
-    def draw(self):
+    def display(self):
         self.parent_screen.blit(self.image, (self.x, self.y))
 
     def move(self):
@@ -34,13 +34,13 @@ class RottenCarrot:
         self.y = random.randint(1, 19) * SIZE
 
 class Rabbit:
-    def __init__(self, parent_screen, length):
+    def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/rabbit.jpg").convert()
+        self.image = pygame.image.load("game-images/rabbit.png")
         self.direction = 'down'
-        self.length = length
-        self.x = [40] * length
-        self.y = [40] * length
+        
+        self.x = 2
+        self.y = 2
 
     def move_left(self):
         self.direction = 'left'
@@ -55,36 +55,24 @@ class Rabbit:
         self.direction = 'down'
 
     def walk(self):
-        
-        for i in range(self.length - 1, 0, -1):
-            self.x[i] = self.x[i - 1]
-            self.y[i] = self.y[i - 1]
 
-        
-        if self.direction == 'left':
-            self.x[0] -= SIZE
-        if self.direction == 'right':
-            self.x[0] += SIZE
-        if self.direction == 'up':
-            self.y[0] -= SIZE
-        if self.direction == 'down':
-            self.y[0] += SIZE
+        if self.direction == 'left' and self.x > 0:
+            self.x -= SIZE
+        if self.direction == 'right' < 580:
+            self.x += SIZE
+        if self.direction == 'up' > 0:
+            self.y -= SIZE
+        if self.direction == 'down' < 580:
+            self.y += SIZE
 
-        self.draw()
+        self.display()
 
-    def draw(self):
-        self.parent_screen.fill((110, 110, 5))
-        for i in range(self.length):
-            self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
-
-    def increase_length(self):
-        self.length += 1
-        self.x.append(-1)
-        self.y.append(-1)
+    def display(self):
+            self.parent_screen.blit(self.image, (self.x, self.y))
 
 class Game:
     def __init__(self):
-        pygame.init()
+        
         self.surface = pygame.display.set_mode((1000, 800))
         self.rabbit = Rabbit(self.surface, 2)
         self.rabbit.draw()
@@ -137,7 +125,7 @@ class Game:
         self.carrot.draw()
         self.rotten_carrot.draw()
         self.display_score()
-        pygame.display.flip()
+        
 
         if self.is_collision(self.rabbit.x[0], self.rabbit.y[0], self.carrot.x, self.carrot.y):
             self.rabbit.increase_length()
@@ -157,7 +145,7 @@ class Game:
             game_over = font.render("Game Over! Rabbit ate rotten carrot.", True, (255, 0, 0))
             self.surface.blit(game_over, (200, 350))
             pygame.display.flip()
-            time.sleep(2)
+            
             return False
             
         return True
@@ -183,10 +171,11 @@ class Game:
             if not self.play():
                 running = False
                 
-            time.sleep(.2)
-        
+            
+        speed.time(60)
+        pygame.display.flip()
         print("Program ended")
 
-if __name__ == '__main__':
-    game = Game()
-    game.run()
+
+game = Game()
+game.run()
