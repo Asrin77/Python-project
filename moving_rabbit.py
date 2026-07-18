@@ -3,7 +3,6 @@ import pygame as game
 game.init()
 
 
-
 class Rabbit_design:
     def __init__(this, screen):
         this.screen = screen
