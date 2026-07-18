@@ -4,8 +4,9 @@ game.init()
 
 
 
-class Snake_design:
-    def __init__(this):
+class Rabbit_design:
+    def __init__(this, screen):
+        this.screen = screen
 
         try:
             this.block = game.image.load("game-images/yellow_block.png")
@@ -28,19 +29,23 @@ class Snake_design:
 
     def down_key(this):
         this.Y += 12
+    
+    def display(this):
+        this.screen.blit(this.block, (this.X, this.Y))
+
         
 
 class Game_design:
-    def __init__ (this, window):
-        this.screen = window
-        this.window = game.display.set_mode((600, 600))
+    def __init__ (this):
+        this.screen = game.display.set_mode((600, 600))
+         
         try:
             this.window = game.image.load("game-images/grass.jpg")
         except FileNotFoundError:
             print(f"Error: grass.jpg not found")
             game.quit()
             exit()
-        this.snake= Snake_design()
+        this.rabbit= Rabbit_design(this.screen)
 
     def run(this):
         running = True
@@ -53,14 +58,22 @@ class Game_design:
                 if event.type == game.KEYDOWN:
 
                     if event.key == game.K_RIGHT:
-                        this.snake.right_key()
+                        this.rabbit.right_key()
                     
                     if event.key == game.K_LEFT:
-                        this.snake.left_key()
+                        this.rabbit.left_key()
                     
                     if event.key == game.K_UP:
-                        this.snake.up_key()
+                        this.rabbit.up_key()
 
                     if event.key == game.K_DOWN:
-                        this.snake.down_key()
+                        this.rabbit.down_key()
+                
+            this.screen.blit(this.window, (0,0))
+            this.rabbit.display()
+            game.display.flip()
+        game.quit()
+
+rb = Game_design()
+rb.run()
                         
