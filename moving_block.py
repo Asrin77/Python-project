@@ -6,28 +6,28 @@ game.init()
 
 class Snake_design:
     def __init__(this):
+
         try:
-            this.block = game.load("game-images/yellow_block.png")
+            this.block = game.image.load("game-images/yellow_block.png")
         except FileNotFoundError:
             print(f"Error: yellow_block.png not found")
             game.quit()
             exit()
-
-        
-        this.x = 100
-        this.y = 100
+ 
+        this.X = 100
+        this.Y = 100
 
     def right_key(this):
-        this.x += 12
+        this.X += 12
 
     def left_key(this):
-        this.x -= 12
+        this.X -= 12
 
     def up_key(this):
-        this.y -= 12
+        this.Y -= 12
 
     def down_key(this):
-        this.y += 12
+        this.Y += 12
         
 
 class Game_design:
@@ -40,16 +40,27 @@ class Game_design:
             print(f"Error: grass.jpg not found")
             game.quit()
             exit()
+        this.snake= Snake_design()
 
     def run(this):
         running = True
         
         while running:
-            
-        
+            for event in game.event.get():
+                if event.type == game.QUIT:
+                     running = False
 
+                if event.type == game.KEYDOWN:
 
+                    if event.key == game.K_RIGHT:
+                        this.snake.right_key()
+                    
+                    if event.key == game.K_LEFT:
+                        this.snake.left_key()
+                    
+                    if event.key == game.K_UP:
+                        this.snake.up_key()
 
-
-    
-        
+                    if event.key == game.K_DOWN:
+                        this.snake.down_key()
+                        
