@@ -3,7 +3,7 @@ import pygame as game
 game.init()
 speed = game.time.Clock()
 
-class Rabbit_design:
+class Snake_design:
     def __init__(this, screen):
         this.screen = screen
 
@@ -18,7 +18,7 @@ class Rabbit_design:
         this.Y = 236
 
     def right_key(this):
-        if this.X < 580:
+        if this.X < 600:
             this.X += 2
 
     def left_key(this):
@@ -30,7 +30,7 @@ class Rabbit_design:
             this.Y -= 2
 
     def down_key(this):
-        if this.Y < 580 :  
+        if this.Y < 600 :  
             this.Y += 2
     
     def display(this):
