@@ -55,3 +55,16 @@ class Snake:
             self.y[0] -= SIZE
         if self.direction == 'down':
             self.y[0] += SIZE
+            self.draw()
+
+def draw(self):
+        self.parent_screen.fill((110, 110, 5))
+
+        for i in range(self.length):
+            self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
+        pygame.display.flip()
+
+def increase_length(self):
+        self.length += 1
+        self.x.append(-1)
+        self.y.append(-1)
