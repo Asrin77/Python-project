@@ -18,3 +18,30 @@ class Apple:
     def move(self):
         self.x = random.randint(1,25)*SIZE
         self.y = random.randint(1,20)*SIZE
+class Snake:
+    def __init__(self, parent_screen, length):
+        self.parent_screen = parent_screen
+        self.image = pygame.image.load("resources/block.jpg").convert()
+        self.direction = 'down'
+
+        self.length = length
+        self.x = [40]*length
+        self.y = [40]*length
+
+    def move_left(self):
+        self.direction = 'left'
+
+    def move_right(self):
+        self.direction = 'right'
+
+    def move_up(self):
+        self.direction = 'up'
+
+    def move_down(self):
+        self.direction = 'down'
+
+    def walk(self):
+        for i in range(self.length-1,0,-1):
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
+
