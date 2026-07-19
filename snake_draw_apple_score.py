@@ -100,8 +100,7 @@ class Game:
 
     def run(self):
         running = True
-        
-       while running:
+        while running:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
