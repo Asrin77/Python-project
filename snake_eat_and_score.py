@@ -23,7 +23,7 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen, length):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("game-images/snake_block_yellow.png").convert_alpha()
+        self.image = pygame.image.load("game-images/yellow_snake.png").convert_alpha()
         self.direction = 'down'
         self.length = length
         self.x = [40] * length
