@@ -41,7 +41,17 @@ class Snake:
         self.direction = 'down'
 
     def walk(self):
+        # update body
         for i in range(self.length-1,0,-1):
             self.x[i] = self.x[i-1]
             self.y[i] = self.y[i-1]
 
+        # update head
+        if self.direction == 'left':
+            self.x[0] -= SIZE
+        if self.direction == 'right':
+            self.x[0] += SIZE
+        if self.direction == 'up':
+            self.y[0] -= SIZE
+        if self.direction == 'down':
+            self.y[0] += SIZE
