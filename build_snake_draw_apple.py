@@ -68,3 +68,13 @@ def increase_length(self):
         self.length += 1
         self.x.append(-1)
         self.y.append(-1)
+
+
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.surface = pygame.display.set_mode((1000, 800))
+        self.snake = Snake(self.surface, 5)
+        self.snake.draw()
+        self.apple = Apple(self.surface)
+        self.apple.draw()
