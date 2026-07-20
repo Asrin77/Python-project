@@ -7,7 +7,7 @@ SIZE = 40
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/apple.jpg").convert()
+        self.image = pygame.image.load("game-images/apple.png").convert_alpha()
         self.x = 120
         self.y = 120
 
@@ -21,7 +21,7 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen, length):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/block.jpg").convert()
+        self.image = pygame.image.load("game-images/yellow_snake.png").convert_alpha()
         self.direction = 'down'
 
         self.length = length
@@ -40,6 +40,7 @@ class Snake:
     def move_down(self):
         self.direction = 'down'
 
+    
     def walk(self):
         # update body
         for i in range(self.length-1,0,-1):
@@ -53,22 +54,24 @@ class Snake:
             self.x[0] += SIZE
         if self.direction == 'up':
             self.y[0] -= SIZE
+
         if self.direction == 'down':
             self.y[0] += SIZE
-            self.draw()
 
-def draw(self):
+        self.draw()
+
+    def draw(self):
         self.parent_screen.fill((110, 110, 5))
 
         for i in range(self.length):
             self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
+
         pygame.display.flip()
 
-def increase_length(self):
+    def increase_length(self):
         self.length += 1
         self.x.append(-1)
         self.y.append(-1)
-
 
 class Game:
     def __init__(self):
