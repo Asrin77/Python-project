@@ -17,3 +17,14 @@ class Apple:
             print("Error: apple.png not found")
             pygame.quit()
             exit()
+        
+        self.x = 120
+        self.y = 120
+
+        def display_image(self):
+            self.parent_screen.blit(self.apple_image, (self.x, self.y))
+
+        def move(self):
+            self.x = random.randint(1,24) * size
+            self.y = random.randint(1,19) * size
+            
