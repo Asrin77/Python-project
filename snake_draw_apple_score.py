@@ -87,13 +87,13 @@ class Game:
         self.font = pygame.font.SysFont("Arial", 30)
 
     # Added Score Display Method
-    def display_score(self):
-        score_text = self.font.render(
-            "Score : " + str(self.score),
-            True,
-            (255, 255, 255))
-        self.surface.blit(score_text, (20, 20))
-        pygame.display.flip()
+    # def display_score(self):
+    #     score_text = self.font.render(
+    #         "Score : " + str(self.score),
+    #         True,
+    #         (255, 255, 255))
+    #     self.surface.blit(score_text, (20, 20))
+    #     pygame.display.flip()
 
     
     def play(self):
