@@ -1,12 +1,10 @@
 import pygame
 import random
 
-# ---------------- SETTINGS ----------------
 SIZE = 40
 WIDTH = 800
 HEIGHT = 600
 
-# ---------------- APPLE ----------------
 class Apple:
     def __init__(self, screen):
         self.screen = screen
@@ -22,7 +20,6 @@ class Apple:
         self.screen.blit(self.image, (self.x, self.y))
 
 
-# ---------------- SNAKE ----------------
 class Snake:
     def __init__(self, screen):
         self.screen = screen
@@ -39,12 +36,12 @@ class Snake:
             self.screen.blit(self.image, (self.x[i], self.y[i]))
 
     def walk(self):
-        # Move body
+        
         for i in range(self.length - 1, 0, -1):
             self.x[i] = self.x[i - 1]
             self.y[i] = self.y[i - 1]
 
-        # Move head
+        
         if self.direction == "right":
             self.x[0] += SIZE
         elif self.direction == "left":
@@ -93,7 +90,7 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        # Sounds
+        
         self.eating_sound = pygame.mixer.Sound("sound/eating.mp3")
         self.eating_sound.set_volume(2.0)
 
@@ -104,7 +101,7 @@ class Game:
         pygame.mixer.music.set_volume(2.0)
         pygame.mixer.music.play(-1)
 
-        # -------- START SPEED --------
+        
         self.speed = 4
 
         self.snake = Snake(self.screen)
@@ -146,7 +143,7 @@ class Game:
 
         while running:
 
-            # -------- GAME SPEED --------
+            
             self.clock.tick(self.speed)
 
             for event in pygame.event.get():
@@ -173,17 +170,17 @@ class Game:
 
             self.snake.walk()
 
-            # Eat Apple
+            
             if self.collision():
                 self.eating_sound.play()
                 self.snake.increase_length()
                 self.apple.move()
 
-                # Increase speed slowly
+                
                 if self.speed < 12:
                     self.speed += 0.2
 
-            # Wall Collision
+            
             if (self.snake.x[0] < 0 or
                 self.snake.x[0] >= WIDTH or
                 self.snake.y[0] < 0 or

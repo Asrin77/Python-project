@@ -80,7 +80,7 @@ class Game:
 
     
     def load_high_score(self):
-        """Safely reads the high score from a file using specific exception handling."""
+        
         try:
             with open(HS_FILE, 'r') as file:
                 content = file.read().strip()
@@ -99,7 +99,7 @@ class Game:
             return 0
 
     def save_high_score(self):
-        """Safely writes the high score to a file using specific exception handling."""
+        
         try:
             with open(HS_FILE, 'w') as file:
                 file.write(str(self.high_score))
@@ -121,33 +121,33 @@ class Game:
     def display_ui(self):
         font = pygame.font.SysFont('arial', 26)
         
-        # Current Score
+        
         score_text = font.render(f"Score: {self.snake.length}", True, (200, 200, 200))
         self.surface.blit(score_text, (820, 10))
         
-        # High Score
+        
         hs_text = font.render(f"High Score: {self.high_score}", True, (255, 215, 0))
         self.surface.blit(hs_text, (820, 45))
 
     def play(self):
-        self.surface.fill((110, 110, 5))  # Clear background once per frame
+        self.surface.fill((110, 110, 5))  
         
         self.snake.walk()
         self.snake.draw()
         self.apple.draw()
         
-        # Check collision with apple
+        
         if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
             self.snake.increase_length()
             self.apple.move()
             
-            # Check if current score beats high score
+            
             if self.snake.length > self.high_score:
                 self.high_score = self.snake.length
-                self.save_high_score()  # Save instantly upon beating it
+                self.save_high_score()  
 
         self.display_ui()
-        #pygame.display.flip()
+        
 
     def run(self):
         running = True
@@ -156,14 +156,19 @@ class Game:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         running = False
-                    elif event.key == K_LEFT:
+
+                    if event.key == K_LEFT:
                         self.snake.move_left()
-                    elif event.key == K_RIGHT:
+
+                    if event.key == K_RIGHT:
                         self.snake.move_right()
-                    elif event.key == K_UP:
+
+                    if event.key == K_UP:
                         self.snake.move_up()
-                    elif event.key == K_DOWN:
+
+                    if event.key == K_DOWN:
                         self.snake.move_down()
+                        
                 elif event.type == QUIT:
                     running = False
 
