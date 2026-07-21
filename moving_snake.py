@@ -8,7 +8,7 @@ class Snake_design:
         this.screen = screen
 
         try:
-            this.sk = game.image.load("game-images/yellow_snake.png")
+            this.sk = game.image.load("game-images/yellow_snake.png").convert_alpha()
         except FileNotFoundError:
             print(f"Error: yellow_snake.png not found")
             game.quit()
