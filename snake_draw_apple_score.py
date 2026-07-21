@@ -124,4 +124,3 @@ class Game:
                 self.play()
 
             time.sleep(.2)
-            pygame.display.flip()
