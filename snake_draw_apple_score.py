@@ -74,24 +74,24 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
-        self.surface = pygame.display.set_mode((1000, 800))
+        self.surface = pygame.display.set_mode((600, 600))
         self.snake = Snake(self.surface, 5)
         self.snake.draw()
         self.apple = Apple(self.surface)
         self.apple.draw()
         
-        # Added Score Variables
+        
         self.score = 0
         self.font = pygame.font.SysFont("Arial", 30)
 
-    # Added Score Display Method
-    # def display_score(self):
-    #     score_text = self.font.render(
-    #         "Score : " + str(self.score),
-    #         True,
-    #         (255, 255, 255))
-    #     self.surface.blit(score_text, (20, 20))
-    #     pygame.display.flip()
+    
+    def display_score(self):
+        score_text = self.font.render(
+            "Score : " + str(self.score),
+            True,
+            (255, 255, 255))
+        self.surface.blit(score_text, (20, 20))
+        pygame.display.flip()
 
     
     def play(self):
