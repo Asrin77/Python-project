@@ -78,7 +78,4 @@ class Game_design:
             speed.tick(60)
             game.display.flip()
         game.quit()
-        
-
-s = Game_design()
-s.run()                
+                       
