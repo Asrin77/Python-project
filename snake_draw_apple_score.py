@@ -4,6 +4,7 @@ import time
 import random
 
 SIZE = 40
+
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
@@ -74,7 +75,7 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
-        self.surface = pygame.display.set_mode((600, 600))
+        #self.surface = pygame.display.set_mode((600, 600))
         self.snake = Snake(self.surface, 5)
         self.snake.draw()
         self.apple = Apple(self.surface)
@@ -91,7 +92,7 @@ class Game:
             True,
             (255, 255, 255))
         self.surface.blit(score_text, (20, 20))
-        pygame.display.flip()
+    #    pygame.display.flip()
 
     
     def play(self):
@@ -99,28 +100,28 @@ class Game:
         self.apple.draw()
         self.display_score()      
 
-    def run(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        running = False
+    # def run(self):
+    #     running = True
+    #     while running:
+    #         for event in pygame.event.get():
+    #             if event.type == KEYDOWN:
+    #                 if event.key == K_ESCAPE:
+    #                     running = False
 
-                    if event.key == K_LEFT:
-                        self.snake.move_left()
+    #                 if event.key == K_LEFT:
+    #                     self.snake.move_left()
 
-                    if event.key == K_RIGHT:
-                        self.snake.move_right()
+    #                 if event.key == K_RIGHT:
+    #                     self.snake.move_right()
 
-                    if event.key == K_UP:
-                        self.snake.move_up()
+    #                 if event.key == K_UP:
+    #                     self.snake.move_up()
 
-                    if event.key == K_DOWN:
-                        self.snake.move_down()
+    #                 if event.key == K_DOWN:
+    #                     self.snake.move_down()
 
-                elif event.type == QUIT:
-                    running = False
-                self.play()
+    #             elif event.type == QUIT:
+    #                 running = False
+    #             self.play()
 
-            time.sleep(.2)
+    #        time.sleep(.2)
