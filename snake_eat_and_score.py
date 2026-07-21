@@ -4,7 +4,7 @@ import time
 import random
 
 SIZE = 40
-HS_FILE = "highscore.txt"  # File to store the high score
+HS_FILE = "highscore.txt"  
 
 class Apple:
     def __init__(self, parent_screen):
@@ -30,7 +30,7 @@ class Snake:
         self.y = [40] * length
 
     def move_left(self):
-        if self.direction != 'right':  # Prevent instant reverse self-collision
+        if self.direction != 'right':  
             self.direction = 'left'
 
     def move_right(self):
@@ -76,10 +76,10 @@ class Game:
         self.snake = Snake(self.surface, 2)
         self.apple = Apple(self.surface)
         
-        # Load high score safely on startup
+        
         self.high_score = self.load_high_score()
 
-    # === FILE AND ERROR HANDLING CODE ===
+    
     def load_high_score(self):
         """Safely reads the high score from a file using specific exception handling."""
         try:
@@ -111,7 +111,7 @@ class Game:
             print(f"Error: {e}. System I/O issue while saving '{HS_FILE}'.")
         except Exception as e:
             print(f"Unexpected error while saving high score: {e}")
-    # ====================================
+    
 
     def is_collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + SIZE:

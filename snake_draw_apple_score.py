@@ -13,7 +13,6 @@ class Apple:
 
     def draw(self):
         self.parent_screen.blit(self.image, (self.x, self.y))
-        pygame.display.flip()
 
     def move(self):
         self.x = random.randint(1,25)*SIZE
@@ -66,7 +65,6 @@ class Snake:
         for i in range(self.length):
             self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
 
-        pygame.display.flip()
 
     def increase_length(self):
         self.length += 1
@@ -126,6 +124,7 @@ class Game:
                 self.play()
 
             time.sleep(.2)
+            pygame.display.flip()
 
 if __name__ == '__main__':
     game = Game()

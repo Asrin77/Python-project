@@ -166,6 +166,9 @@ class Game:
                 pause = True
                 self.reset()
 
+            if self.play():
+                self.show_game_over()
+
             time.sleep(.25)
 
 if __name__ == '__main__':
