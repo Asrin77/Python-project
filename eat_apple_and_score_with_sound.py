@@ -2,7 +2,7 @@ import pygame
 import random
 
 SIZE = 40
-WIDTH = 800
+WIDTH = 600
 HEIGHT = 600
 
 class Apple:
@@ -73,7 +73,7 @@ class Snake:
             self.direction = "down"
 
 
-# ---------------- GAME ----------------
+
 class Game:
     def __init__(self):
         pygame.init()

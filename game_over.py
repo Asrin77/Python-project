@@ -79,7 +79,7 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Codebasics Snake And Apple Game")
-        self.surface = pygame.display.set_mode((1000, 800))
+        #self.surface = pygame.display.set_mode((600, 600))
         self.snake = Snake(self.surface)
         self.snake.draw()
         self.apple = Apple(self.surface)
