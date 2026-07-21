@@ -195,8 +195,3 @@ class Game:
 
         pygame.quit()
 
-
-# ---------------- MAIN ----------------
-if __name__ == "__main__":
-    game = Game()
-    game.run()
