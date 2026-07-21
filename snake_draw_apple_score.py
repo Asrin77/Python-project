@@ -125,7 +125,3 @@ class Game:
 
             time.sleep(.2)
             pygame.display.flip()
-
-if __name__ == '__main__':
-    game = Game()
-    game.run()
