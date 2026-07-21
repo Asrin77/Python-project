@@ -110,7 +110,8 @@ class Game:
         # snake colliding with itself
         for i in range(2, self.snake.length):
             if self.is_collision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
-                raise "Collision Occured"
+                #raise "Collision Occured"
+                return True
 
     def display_score(self):
         font = pygame.font.SysFont('arial',30)
