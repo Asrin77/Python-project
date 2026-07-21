@@ -71,7 +71,7 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
-        self.surface = pygame.display.set_mode((1000, 800))
+        #self.surface = pygame.display.set_mode((1000, 800))
         pygame.display.set_caption("Snake Game with Safe High Scores")
         self.snake = Snake(self.surface, 2)
         self.apple = Apple(self.surface)
@@ -148,7 +148,7 @@ class Game:
                 self.save_high_score()  # Save instantly upon beating it
 
         self.display_ui()
-        pygame.display.flip()
+        #pygame.display.flip()
 
     def run(self):
         running = True
@@ -169,7 +169,7 @@ class Game:
                     running = False
 
             self.play()
-            time.sleep(.2)
+            pygame.time.Clock.tick(.2)
             
         pygame.quit()
         print("Program ended")
