@@ -43,8 +43,8 @@ class Snake:
 
         self.direction = "down" 
         self.length = length
-        self.x = [40] * length
-        self.y = [40] * length
+        self.x = [size] * length
+        self.y = [size] * length
 
     def move_right(self):
         if self.direction != "left":
@@ -91,8 +91,33 @@ class Snake:
 class Game:
     def __init__(self):
 
-            self.surface = pygame.display.set_mode((600, 600))
+            self.surface = pygame.display.set_mode((width, height))
             pygame.display.set_caption("snake game")
+            try:
+                self.background = pygame.image.load("game-images/grass.jpg").convert()
+            except FileNotFoundError:
+                print("Error: grass.jpg not found")
+                pygame.quit()
+                exit()
+
+            pygame.mixer.init()
+
+            try:
+                self.eating_sound = pygame.mixer.Sound("sound/eating.mp3")
+                self.gameover_sound = pygame.mixer.Sound("sound/gameover.mp3")
+
+                self.eating_sound.set_volume(1.0)
+                self.gameover_sound.set_volume(1.0)
+
+                pygame.mixer.music.load("sound/background.mp3")
+                pygame.mixer.music.set_volume(1.0)
+                pygame.mixer.music.play(-1)
+
+            except FileNotFoundError:
+                print("Error: One or more sound files were not found.")
+                pygame.quit()
+                exit()
+
             self.snake = Snake(self.surface, 2)
             self.apple = Apple(self.surface)
             
@@ -119,7 +144,7 @@ class Game:
                 file.write(str(self.high_score))
 
         except IOError as e:
-            print(f"Error: {e}. The file '{HS_FILE}' does not exist.")
+            print(f"error: {e}. unable to save the high score")
 
     def is_collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + size:
@@ -130,28 +155,57 @@ class Game:
     def display_ui(self):
         font = pygame.font.SysFont("arial", 26)
 
-        score_text = font.render(f"score: {self.snake.length}", True, (200, 200, 200))
+        score_text = font.render(f"Score: {self.snake.length - 2}", True, (200,200,200))
         self.surface.blit(score_text, (20,20))
 
         hs_text = font.render(f"high score: {self.high_score}", True, (255, 215, 0))
         self.surface.blit(hs_text, (20,50))
 
+    def game_over(self):
+
+        pygame.mixer.music.stop()
+        self.gameover_sound.play()
+
+        self.surface.fill((0,0,0))
+
+        font = pygame.font.SysFont("arial",40)
+
+        text1 = font.render("GAME OVER", True, (255,0,0))
+        text2 = font.render(f"Final Score : {self.snake.length - 2}", True, (255,255,255))
+
+        self.surface.blit(text1,(180,220))
+        self.surface.blit(text2,(180,280))
+
+        pygame.display.flip()
+
+        pygame.time.wait(3000)
+
+        pygame.quit()
+        exit()
+
     def play(self):
         try:
-            self.surface.fill((110, 110, 5))
+            self.surface.blit(self.background, (0, 0))
 
             self.snake.walk()
             self.snake.display_image()
             self.apple.display_image()
 
             if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+                self.eating_sound.play()
                 self.snake.increase_length()
                 self.apple.move()
                 
-                if self.snake.length > self.high_score:
-                    self.high_score = self.snake.length
+                if self.snake.length - 2 > self.high_score:
+                    self.high_score = self.snake.length - 2
                     self.save_high_score()
 
+            if (self.snake.x[0] < 0 or
+                self.snake.x[0] >= width or
+                self.snake.y[0] < 0 or
+                self.snake.y[0] >= height):
+
+                self.game_over()
             self.display_ui()
 
         except Exception as e:
@@ -167,22 +221,22 @@ class Game:
                 if event.type == pygame.QUIT:
                      running = False
 
-                if event.type == pygame.KEYDOWN:
+                if event.type == KEYDOWN:
 
-                    if event.key == pygame.K_RIGHT:
+                    if event.key == K_RIGHT:
                         self.snake.move_right()
                     
-                    if event.key == pygame.K_LEFT:
+                    if event.key == K_LEFT:
                         self.snake.move_left()
                     
-                    if event.key == pygame.K_UP:
+                    if event.key == K_UP:
                         self.snake.move_up()
 
-                    if event.key == pygame.K_DOWN:
+                    if event.key == K_DOWN:
                         self.snake.move_down()
             
             self.play()
-            clock.tick(10)
+            clock.tick(2)
             pygame.display.flip()
         pygame.quit()
 if __name__ == "__main__":
