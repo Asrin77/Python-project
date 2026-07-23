@@ -10,9 +10,11 @@ clock = pygame.time.Clock()
 
 HS_FILE = "highscore.txt"
 
+
 class Apple:
-    def __init__(self, parent_screen):
-        self.parent_screen = parent_screen
+
+    def __init__(self, screen):
+        self.screen = screen
 
         try:
             self.apple_image = pygame.image.load("game-images/apple.png").convert_alpha()
@@ -21,19 +23,19 @@ class Apple:
             pygame.quit()
             exit()
         
-        self.x = 120
-        self.y = 120
+        self.x = 400
+        self.y = 400
 
     def display_image(self):
-        self.parent_screen.blit(self.apple_image, (self.x, self.y))
+        self.screen.blit(self.apple_image, (self.x, self.y))
 
     def move(self):
         self.x = random.randint(1,14) * size
-        self.y = random.randint(1,14) * size
+        self.y = random.randint(3,14) * size
 
 class Snake:
-    def __init__(self, parent_screen, length):
-        self.parent_screen = parent_screen
+    def __init__(self, screen, length):
+        self.screen = screen
         try:
             self.snake_image = pygame.image.load("game-images/yellow_snake.png").convert_alpha()
         except FileNotFoundError:
@@ -43,8 +45,8 @@ class Snake:
 
         self.direction = "down" 
         self.length = length
-        self.x = [size] * length
-        self.y = [size] * length
+        self.x = [120] * length
+        self.y = [120] * length
 
     def move_right(self):
         if self.direction != "left":
@@ -62,7 +64,7 @@ class Snake:
         if self.direction != "up":
             self.direction = "down"
 
-    def walk(self):
+    def move_snake(self):
         for i in range(self.length - 1, 0, -1):
             self.x[i] = self.x[i - 1]
             self.y[i] = self.y[i - 1]
@@ -81,7 +83,7 @@ class Snake:
 
     def display_image(self):
         for  i in range(self.length):
-            self.parent_screen.blit(self.snake_image, (self.x[i], self.y[i]))
+            self.screen.blit(self.snake_image, (self.x[i], self.y[i]))
 
     def increase_length(self):
         self.length += 1
@@ -89,10 +91,12 @@ class Snake:
         self.y.append(-1)
 
 class Game:
+
     def __init__(self):
 
             self.surface = pygame.display.set_mode((width, height))
             pygame.display.set_caption("snake game")
+
             try:
                 self.background = pygame.image.load("game-images/grass.jpg").convert()
             except FileNotFoundError:
@@ -124,6 +128,7 @@ class Game:
             self.high_score = 0
             self.load_high_score()
 
+
     def load_high_score(self):
         try:
             with open(HS_FILE, "r") as file:
@@ -138,6 +143,7 @@ class Game:
             print(f"error: {e}. the file '{HS_FILE}' does not exist")
             self.high_score = 0
 
+
     def save_high_score(self):
         try:
             with open(HS_FILE, "w") as file:
@@ -146,23 +152,25 @@ class Game:
         except IOError as e:
             print(f"error: {e}. unable to save the high score")
 
-    def is_collision(self, x1, y1, x2, y2):
-        if x1 >= x2 and x1 < x2 + size:
-            if y1 >= y2 and y1 < y2 + size:
-                return True
-        return False
-    
-    def display_ui(self):
-        font = pygame.font.SysFont("arial", 26)
 
-        score_text = font.render(f"Score: {self.snake.length - 2}", True, (200,200,200))
+    def check_collision(self, x1, y1, x2, y2):
+        if x1 == x2 and y1 == y2:
+            return True
+        return False
+
+
+    def display_text(self):
+
+        font = pygame.font.SysFont("arial", 26, bold = True)
+
+        score_text = font.render(f"Score: {self.snake.length - 2}", True, (255, 192, 203))
         self.surface.blit(score_text, (20,20))
 
         hs_text = font.render(f"high score: {self.high_score}", True, (255, 215, 0))
         self.surface.blit(hs_text, (20,50))
 
-    def game_over(self):
 
+    def game_over(self):
         pygame.mixer.music.stop()
         self.gameover_sound.play()
 
@@ -187,11 +195,11 @@ class Game:
         try:
             self.surface.blit(self.background, (0, 0))
 
-            self.snake.walk()
+            self.snake.move_snake()
             self.snake.display_image()
             self.apple.display_image()
 
-            if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+            if self.check_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
                 self.eating_sound.play()
                 self.snake.increase_length()
                 self.apple.move()
@@ -201,13 +209,19 @@ class Game:
                     self.save_high_score()
 
             if (self.snake.x[0] < 0 or
-                self.snake.x[0] >= width or
+                self.snake.x[0] >= width  or
                 self.snake.y[0] < 0 or
                 self.snake.y[0] >= height):
 
                 self.game_over()
-            self.display_ui()
+            self.display_text()
 
+            for i in range(1, self.snake.length):
+                if (self.snake.x[0] == self.snake.x[i] and
+                    self.snake.y[0] == self.snake.y[i]):
+
+                    self.game_over()
+                    self.display_text()
         except Exception as e:
             print(f"error in game play: {e}")
             pygame.quit()
@@ -236,14 +250,8 @@ class Game:
                         self.snake.move_down()
             
             self.play()
-            clock.tick(2)
+            clock.tick(3)
             pygame.display.flip()
         pygame.quit()
-if __name__ == "__main__":
-    try:
-        game = Game()
-        game.run()
-    except Exception as e:
-        print(f"Fatal error: {e}")
-        pygame.quit()
-        exit(1)
+game = Game()
+game.run()
