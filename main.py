@@ -5,6 +5,7 @@ import random
 size = 40
 height = 600
 width = 600
+clock = pygame.time.Clock()
 
 HS_FILE = "highscore.txt"
 
@@ -106,7 +107,9 @@ class Game:
         try:
             with open(HS_FILE, "r") as file:
                  content = file.read()
+                 
             self.high_score = int(content)
+
         except FileNotFoundError as e:
             print(f"error: {e}. the file '{HS_FILE}' does not exist")
             self.high_score = 0
@@ -118,7 +121,7 @@ class Game:
 
         except FileNotFoundError as e:
             print(f"Error: {e}. The file '{HS_FILE}' does not exist.")
-            
+
     def is_collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + size:
             if y1 >= y2 and y1 < y2 + size:
@@ -154,3 +157,38 @@ class Game:
 
         except Exception as e:
             print(f"error in game play: {e}")
+
+    def run(self):
+        running = True
+        
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                     running = False
+
+                if event.type == pygame.KEYDOWN:
+
+                    if event.key == pygame.K_RIGHT:
+                        self.snake.move_right()
+                    
+                    if event.key == pygame.K_LEFT:
+                        self.snake.move_left()
+                    
+                    if event.key == pygame.K_UP:
+                        self.snake.move_up()
+
+                    if event.key == pygame.K_DOWN:
+                        self.snake.move_down()
+            
+            self.play()
+            clock.tick(10)
+            pygame.display.flip()
+        pygame.quit()
+if __name__ == "__main__":
+    try:
+        game = Game()
+        game.run()
+    except Exception as e:
+        print(f"Fatal error: {e}")
+        pygame.quit()
+        exit(1)
