@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import random
 
+pygame.init()
 size = 40
 height = 600
 width = 600
@@ -89,26 +90,24 @@ class Snake:
 
 class Game:
     def __init__(self):
-        try:
-            pygame.init()
+
             self.surface = pygame.display.set_mode((600, 600))
-            pygame.display.set_caption("snake same with high scores")
+            pygame.display.set_caption("snake game")
             self.snake = Snake(self.surface, 2)
             self.apple = Apple(self.surface)
             
             self.high_score = 0
             self.load_high_score()
-        except Exception as e:
-            print(f"error initializing game: {e}")
-            pygame.quit()
-            exit()
 
     def load_high_score(self):
         try:
             with open(HS_FILE, "r") as file:
                  content = file.read()
                  
-            self.high_score = int(content)
+            if content.isdigit():
+                self.high_score = int(content)
+            else:
+                self.high_score = 0
 
         except FileNotFoundError as e:
             print(f"error: {e}. the file '{HS_FILE}' does not exist")
@@ -119,7 +118,7 @@ class Game:
             with open(HS_FILE, "w") as file:
                 file.write(str(self.high_score))
 
-        except FileNotFoundError as e:
+        except IOError as e:
             print(f"Error: {e}. The file '{HS_FILE}' does not exist.")
 
     def is_collision(self, x1, y1, x2, y2):
@@ -153,10 +152,12 @@ class Game:
                     self.high_score = self.snake.length
                     self.save_high_score()
 
-                self.display_ui()
+            self.display_ui()
 
         except Exception as e:
             print(f"error in game play: {e}")
+            pygame.quit()
+            exit()
 
     def run(self):
         running = True
